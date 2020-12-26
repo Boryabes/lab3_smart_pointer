@@ -5,23 +5,23 @@
 TEST(Example, EmptyTest) { EXPECT_TRUE(true); }
 
 
-TEST(SharedPtr, constructorWithArgument) { //если конструктор без аргументов
+TEST(SharedPtr, constructorWithArgument) {
 int a = 8;
-SharedPtr<int> var(&a); //создаю вар - умный указатель на переменную а
-ASSERT_EQ(*var, a); //разыменовываю вар и возврашаем значение лежащее по указателю(оно должно быть равно 8)
+SharedPtr<int> var(&a);
+ASSERT_EQ(*var, a);
 }
 
-TEST(SharedPtr, constructorWithLValLink) { //передаю лвэлью ссылку
+TEST(SharedPtr, constructorWithLValLink) {
 int a = 8;
-SharedPtr var(&a); //создаю объекст класса шарптр следящий за а
-SharedPtr l(var); //используем констр копирования, копируем данные указателя из вар в л
-ASSERT_EQ(var.use_count(), 2); //проверяем что количество ссылок на вар равно двум (на нее указывают и л и вар)
+SharedPtr var(&a);
+SharedPtr l(var);
+ASSERT_EQ(var.use_count(), 2);
 }
 
 TEST(SharedPtr, constructorWithRValLink) {
 int a = 9;
 SharedPtr var(&a);
-SharedPtr r(std::move(var)); //использую мув чтобы рвэлью передать
+SharedPtr r(std::move(var));
 ASSERT_EQ(var.use_count(), 2);
 }
 
@@ -33,15 +33,14 @@ TEST(SharedPtr, isMoveAssign){
 ASSERT_EQ(std::is_move_assignable<SharedPtr<int>>::value,true);
 }
 
-TEST(SharedPtr, operatorRavnoWithLValLink){ //то же самое что и констр копирования только через равно
+TEST(SharedPtr, operatorRavnoWithLValLink){
 int a = 32;
 SharedPtr var(&a);
 SharedPtr var1 = var;
 ASSERT_EQ(var.use_count(),2);
 }
 
-
-TEST(ShredPtr, operatorRavnoWithRValLink){ //то же самое что и прошлом только с лвэлью
+TEST(ShredPtr, operatorRavnoWithRValLink){
 int a = 12;
 SharedPtr var(&a);
 SharedPtr var1 = std::move(var);
@@ -56,7 +55,7 @@ int a = 1;
 int b = 2;
 SharedPtr<int> A(&a);
 SharedPtr<int> B(&b);
-B.swap(A); //к бэ применяю метод свап
+B.swap(A);
 ASSERT_EQ(*B, 1);
 }
 
